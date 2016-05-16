@@ -1,5 +1,17 @@
+from bs4 import BeautifulSoup
 import requests
 import os
+
+
+
+def search_posts(keyword):
+    all_comics = requests.get('https://www.explainxkcd.com/wiki/index.php/List_of_all_comics_(full)').text
+    soup = BeautifulSoup(all_comics, "html.parser")
+    table = soup.find("table")
+    for row in table.findAll('tr'):
+        for col in table.findAll('td'):
+            #TODO: data structure representing comic
+
 
 def download_newest_post():
     comic = requests.get("http://xkcd.com/info.0.json").json()
@@ -16,6 +28,7 @@ def download_newest_post():
 
 def main():
     download_newest_post()
+    search_posts("")
 
 if __name__ == '__main__':
     main()
