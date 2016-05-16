@@ -3,10 +3,10 @@ An xkcd browser on the terminal
 
 ####Features
 
-* Open the newest xkcd comic, view some information about it and delete it afterwards
+* Find comic by number
 
 ####Todo
 
-* Open a particular comic (by number or by title)
+* Open a particular comic by title
 * Searching for comics
 
