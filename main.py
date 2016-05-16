@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import os
+import pickle
 
 class xkcdcomic():
     def __init__(self, json):
@@ -9,11 +10,8 @@ class xkcdcomic():
         self.alt = json['alt']
         self.transcript = json['transcript']
         self.link = json['img']
-<<<<<<< HEAD
     def __str__(self):
         return(("{}: {}").format(self.title, self.link))
-=======
->>>>>>> origin/master
 
 def generate_database():
     newest_num = requests.get("http://xkcd.com/info.0.json").json()['num']
@@ -23,10 +21,12 @@ def generate_database():
         print(num)
         url = ("http://xkcd.com/{}/info.0.json").format(num)
         try:
-            json = requests.get(url).json()
-            comic = xkcdcomic(json)
+            jsondata = requests.get(url).json()
+            comic = xkcdcomic(jsondata)
             database[comic.number] = comic
         except: continue
+    with open('xkcd_database.pickle', 'wb') as f:
+        pickle.dump(database,f)
     return database
 
 def download_comic(img):
@@ -46,12 +46,9 @@ def show_prompt(comic):
 def main():
     print("Generating database...")
     database = generate_database()
-<<<<<<< HEAD
     number_comics = str(len(database))
     number = int(input("Comic number? The most recent comic is number " + number_comics + ". "))
-=======
     number = int(input("Comic number? Type 0 for most current comic: "))
->>>>>>> origin/master
     comic = database[number]
     url = comic.link
     img = requests.get(url)
