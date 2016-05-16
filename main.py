@@ -12,12 +12,14 @@ class xkcdcomic():
         self.link = json['img']
     def __str__(self):
         return(("{}: {}").format(self.title, self.link))
-        
+
 
 def generate_database():
+    #get number of newest comic
     newest_num = requests.get("http://xkcd.com/info.0.json").json()['num']
     database = {}
     for i in range(1,newest_num+1):
+        #create database of comics to search through
         num = str(i)
         print(num)
         url = ("http://xkcd.com/{}/info.0.json").format(num)
@@ -27,6 +29,7 @@ def generate_database():
             database[comic.number] = comic
         except: continue
     with open('xkcd_database.pickle', 'wb') as f:
+        #save database to file
         pickle.dump(database,f)
     return database
 
