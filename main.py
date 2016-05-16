@@ -12,6 +12,7 @@ class xkcdcomic():
         self.link = json['img']
     def __str__(self):
         return(("{}: {}").format(self.title, self.link))
+        
 
 def generate_database():
     newest_num = requests.get("http://xkcd.com/info.0.json").json()['num']
