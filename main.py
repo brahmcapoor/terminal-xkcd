@@ -19,12 +19,13 @@ class xkcdcomic():
 
 
 def load_database():
-    database = {}
-    with open('xkcd_database.pickle', 'rb') as f:
-        database = pickle.load(f)
+    database = list()
+    if(os.path.isfile('xkcd_database.pickle')):
+        with open('xkcd_database.pickle', 'rb') as f:
+            database = pickle.load(f)
+
     # get number of newest comic
     newest_num = requests.get("http://xkcd.com/info.0.json").json()['num']
-    print(len(database))
     if(len(database) + 1 == newest_num):
         print("Database up to date!")
         return database
@@ -37,7 +38,8 @@ def load_database():
             try:
                 jsondata = requests.get(url).json()
                 comic = xkcdcomic(jsondata)
-                database[comic.number] = comic
+                entry = (comic.number, comic.title, comic)
+                database.append(entry)
             except:
                 continue
         with open('xkcd_database.pickle', 'wb') as f:
@@ -63,13 +65,15 @@ def show_prompt(comic):
 
 def main():
     database = load_database()
-    number_comics = str(len(database) + 1)
+    number_comics = str(len(database))
     number = int(
         input(
             "Comic number? The most recent comic is number " +
             number_comics +
             ". "))
-    comic = database[number]
+    for entry in database:
+        if entry[0] == number:
+            comic = entry[2]
     url = comic.link
     img = requests.get(url)
     download_comic(img)
