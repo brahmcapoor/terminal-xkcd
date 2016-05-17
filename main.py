@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 import requests
 import os
 import pickle
-from tqdm import tqdm
 
 
 class xkcdcomic():
