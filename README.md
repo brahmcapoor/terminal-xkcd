@@ -4,7 +4,7 @@ An xkcd browser on the terminal
 ####Features
 
 * Find comic by number
-* creates local copy of database to avoid regeneration of database every time. TODO: load the database file
+* creates local copy of database to avoid regeneration of database every time.
 
 ####Todo
 
