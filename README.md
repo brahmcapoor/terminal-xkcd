@@ -4,10 +4,10 @@ An xkcd browser on the terminal
 ####Features
 
 * Find comic by number
+* creates local copy of database to avoid regeneration of database every time. TODO: load the database file
 
 ####Todo
 
-* Save the database locally so that it does not need to be recreated every time
 * Open a particular comic by title
 * Searching for comics
-
+* Deal with cases where there is no internet/other exceptions

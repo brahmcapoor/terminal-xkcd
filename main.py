@@ -52,7 +52,6 @@ def main():
     database = generate_database()
     number_comics = str(len(database))
     number = int(input("Comic number? The most recent comic is number " + number_comics + ". "))
-    number = int(input("Comic number? Type 0 for most current comic: "))
     comic = database[number]
     url = comic.link
     img = requests.get(url)
