@@ -63,22 +63,64 @@ def show_prompt(comic):
     os.system("rm -rf img.png")
 
 
-def main():
-    database = load_database()
-    number_comics = str(len(database))
-    number = int(
-        input(
-            "Comic number? The most recent comic is number " +
-            number_comics +
-            ". "))
-    for entry in database:
-        if entry[0] == number:
-            comic = entry[2]
+def download_and_show(comic):
     url = comic.link
     img = requests.get(url)
     download_comic(img)
     os.system("open img.png")
     show_prompt(comic)
+
+
+def num_find(database):
+    number_comics = str(len(database) + 1)
+    number = int(
+        input(
+            "Comic number? The most recent comic is number " +
+            number_comics +
+            ". "))
+    comic = None
+    for entry in database:
+        if entry[0] == number:
+            comic = entry[2]
+    if comic is None:
+        print("Invalid comic number!")
+        return
+    download_and_show(comic)
+
+
+def title_find(database):
+    title = input("Comic title? ")
+    comic = None
+    for entry in database:
+        if entry[1].lower() == title.lower():
+            comic = entry[2]
+    if comic is None:
+        print("Couldn't find that title!")
+        return
+    download_and_show(comic)
+
+
+def show_menu(database):
+    print("What do you want to do? ")
+    print("      To find a comic by number, type 'n'")
+    print("      To find a comic by title, type 't'")
+    print("      To search for a comic, type 's'")
+    choice = input("Your choice: ")
+
+    if choice == "n":
+        num_find(database)
+    elif choice == "t":
+        title_find(database)
+    elif choice == "s":
+        pass
+    else:
+        print("Invalid choice!")
+
+
+def main():
+    database = load_database()
+    show_menu(database)
+
 
 if __name__ == '__main__':
     main()
