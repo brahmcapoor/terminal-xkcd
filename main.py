@@ -1,17 +1,5 @@
 import xkcd_utils
-
-
-class xkcdcomic():
-
-    def __init__(self, json):
-        self.title = json['title']
-        self.number = int(json['num'])
-        self.alt = json['alt']
-        self.transcript = json['transcript']
-        self.link = json['img']
-
-    def __str__(self):
-        return(("{}: {}").format(self.title, self.link))
+from xkcd_utils import xkcdcomic
 
 
 def num_find(database):
@@ -28,7 +16,7 @@ def num_find(database):
     if comic is None:
         print("Invalid comic number!")
         return
-    download_and_show(comic)
+    xkcd_utils.download_and_show(comic)
 
 
 def title_find(database):
@@ -40,7 +28,7 @@ def title_find(database):
     if comic is None:
         print("Couldn't find that title!")
         return
-    download_and_show(comic)
+    xkcd_utls.download_and_show(comic)
 
 
 def title_search(database):
