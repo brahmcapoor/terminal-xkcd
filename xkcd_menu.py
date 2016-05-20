@@ -46,12 +46,17 @@ def title_search(database):
 
     print("Results:")
     for i in range(len(possible_comics)):
-        print(("{}) {}").format(i + 1, possible_comics[i][2].title))
-
-    # TODO: Check if integer
-    choice = int(input("Enter the number of the comic you want to see: "))
-    comic = possible_comics[choice - 1][2]
-    xkcd_comic.download_and_show(comic)
+        print(("{}) {}").format(i + 1, possible_comics[i][1]))
+    choice = input("Enter the number of the comic you want to see: ")
+    while True:
+        try:
+            choice = int(choice)
+            comic = possible_comics[choice - 1][2]
+            xkcd_comic.download_and_show(comic)
+            break
+        except:
+            print("Invalid number!")
+            choice = input("Try again: ")
 
 
 def show_menu(database):

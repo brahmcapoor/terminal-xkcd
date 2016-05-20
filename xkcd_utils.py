@@ -12,8 +12,6 @@ def load_database():
             database = pickle.load(f)
     # get number of newest comic
     newest_num = requests.get("http://xkcd.com/info.0.json").json()['num']
-    print(len(database))
-    print(newest_num)
     if(len(database) + 1 == newest_num):
         print("Database up to date!")
         return database
